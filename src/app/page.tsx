@@ -5,7 +5,9 @@ export default function Home() {
   return (
 <>
 
-<div className="w-full h-full bg-black"></div>
+<div className="w-full h-full bg-black text-whit">
+  hi there
+</div>
 </>
   );
 }
