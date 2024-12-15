@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { auth } from '@/lib/firebase'
+import { auth, db, setDoc } from '@/lib/firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { log } from 'console'
+import { doc } from 'firebase/firestore'
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -47,6 +48,12 @@ export default function LoginPage() {
     try {
     const res =  await signInWithEmailAndPassword(auth, data.email, data.password)
     console.log(res);
+    const {email,password}  = data;
+    await setDoc(doc(db, "users", res.user.uid), {
+      email,
+      password,
+      id: res.user.uid,
+    });
       
     router.push('/dashboard') // Redirect to dashboard after successful login
     } catch (error) {

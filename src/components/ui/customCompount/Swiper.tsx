@@ -16,12 +16,12 @@ import { IoTimeOutline } from "react-icons/io5";
 
 
 
-export default function ProductCarousel() {
+export default function Swiper1() {
   const [isBeginning, setIsBeginning] = React.useState(true)
   const [isEnd, setIsEnd] = React.useState(false)
 
   return (
-    <div className=" mx-auto relative">
+    <div className=" mx-auto relative pl-4">
       <Swiper
         modules={[Navigation]}
         spaceBetween={20}
@@ -37,56 +37,53 @@ export default function ProductCarousel() {
         }}
       >
         {foodpanda.data.rlp.organic_listing.views.map((product) => (
-          product.items.map((product,index)=>{
-         return  <SwiperSlide key={index}>
-            <Card>
-              <CardContent className="p-4 ">
+          product.items.map((product, index) => {
+            return <SwiperSlide key={index} >
+              <Card>
+                <div className=" w-full flex flex-col items-center justify-center">
+                <div className="w-full ">
                 <Image
-                  src={product.hero_listing_image}
-                  alt={product.hero_listing_image}
-                  width={200}
-                  height={200}
-                  className="w-full h-auto object-cover mb-4 rounded-md"
-                />
-               <div className="flex items-start justify-between">
-             <div className="">
-             <h3 className="text-lg font-semibold font-sans mb-2">{product.name}</h3>
-                <h3 className="text-xs font-medium mb-2">$ . {}</h3>
-                <div className="flex gap-2 ">
-
+                    src={product.hero_listing_image}
+                    alt={product.hero_listing_image}
+                    width={200}
+                    height={200}
+                    className="!w-full h-auto object-cover mb-4 rounded-md"
+                  />
                 </div>
-             </div>
+                  <div className="flex items-start w-full p-2 justify-between">
+                    <div className="w-3/4">
+                    <h3 className="text-sm font-semibold font-sans truncate w-full">{product.name}</h3>
 
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, index) => (
-                 <div key={index}>
-                  2
-                 </div>
-                  ))}
-                  <span className="ml-2 text-sm text-gray-600">{product.rating.toFixed(1)}</span>
+                      <h3 className="text-xs font-medium mb-2">$$ . {product.characteristics.primary_cuisine?.name}</h3>
+                      <div className="flex gap-2 ">
+
+                      </div>
+                    </div>
+
+                    <div className="flex items-center w-1/4">
+                 
+                      <span className="ml-2 text-sm text-gray-600">{product.rating.toFixed(1)}</span>
+                    </div>
+                  </div>
                 </div>
-               </div>
-              </CardContent>
-            </Card>
-          </SwiperSlide>
+              </Card>
+            </SwiperSlide>
           })
         ))}
       </Swiper>
       <button
-        className={`bg-white border swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10  rounded-full p-2 shadow-md ${
-          isBeginning ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
-        }`}
+        className={`bg-white border swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10  rounded-full p-2 shadow-md ${isBeginning ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
+          }`}
         disabled={isBeginning}
       >
-      <GrLinkPrevious className='' />
+        <GrLinkPrevious className='' />
       </button>
       <button
-        className={` swiper-button-next text-black absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md ${
-          isEnd ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
-        }`}
+        className={` swiper-button-next text-black absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md ${isEnd ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
+          }`}
         disabled={isEnd}
       >
-       <GrLinkNext className=''/>
+        <GrLinkNext className='' />
       </button>
     </div>
   )

@@ -1,28 +1,24 @@
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import FilterSidebar from "@/components/ui/customCompount/FilderSidebar";
 import FoodInput from "@/components/ui/customCompount/FoodInput";
-import Location from "@/components/ui/customCompount/location";
-import NearbyRestaurants from "@/components/ui/customCompount/Near";
 import Swiper1 from "@/components/ui/customCompount/Swiper";
 import { Input } from "@/components/ui/input";
 import { getUserLocation } from "@/lib/lib";
+
 import Image from "next/image";
-import { log } from "node:console";
 
 export default function Home() {
 
 
-  
 
   return (
 <>
 
-<div className="w-full h-full flex border-l ">
-  <div className="w-1/5 max-md:hidden items-center justify-center flex flex-col">
+<div className="min-h-screen bg-background text-foreground">
+  
    <FilterSidebar />
-  </div>
-  <div className="w-4/5 max-md:w-full pl-8 mt-1">
+<div className="flex items-end justify-end w-full pt-20">
+<div className="w-3/4">
    <div className="m-2 items-center justify-center flex">
     <FoodInput />
    </div> 
@@ -38,15 +34,20 @@ export default function Home() {
         <p className="font-light">Min. order Rs. 415 </p>
       </div>
     </div>
-   {/* <Swiper1  /> */}
+   {/* <Swiper1 /> */}
     </Card>
    </div>
+ 
+
+
+ 
    <div className="">
     <h2 className="font-bold text-3xl p-3 ">Delivery Fee Savers</h2>
     {/* <Swiper1  /> */}
    </div>
 
   </div>
+</div>
 
 </div>
 </>

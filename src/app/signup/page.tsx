@@ -7,7 +7,7 @@ import * as z from 'zod'
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { auth, googleProvider } from '@/lib/firebase'
+import { auth, db, googleProvider, setDoc } from '@/lib/firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,14 +21,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { doc } from 'firebase/firestore'
 
 const signupSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
-  confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters" }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
 })
 
 type SignupFormValues = z.infer<typeof signupSchema>
@@ -42,7 +39,6 @@ export default function SignupPage() {
     defaultValues: {
       email: '',
       password: '',
-      confirmPassword: '',
     },
   })
 
@@ -70,7 +66,14 @@ export default function SignupPage() {
   const onSubmit = async (data: SignupFormValues) => {
     setError('')
     try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password)
+      const res = await createUserWithEmailAndPassword(auth, data.email, data.password)
+      const {email,password}  = data;
+      await setDoc(doc(db, "user", res.user.uid), {
+        email,
+        UserName:"dsa",
+        password,
+        id: res.user.uid,
+      });
       router.push('/dashboard') // Redirect to dashboard after successful signup
     } catch (error) {
       setError('Failed to create an account. Please try again.')
@@ -114,19 +117,7 @@ export default function SignupPage() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
-                      <FormControl>
-                        <Input type="password" placeholder="Confirm your password" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              
               </div>
               {error && (
                 <Alert variant="destructive" className="mt-4">

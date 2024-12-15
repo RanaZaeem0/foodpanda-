@@ -17,7 +17,7 @@ export default function EventHeader(){
   const [isBeginning, setIsBeginning] = React.useState(true)
     const [isEnd, setIsEnd] = React.useState(false)
 
-    return <div className="">
+    return <div className="w-full">
 
       <div className="w-1/2">
       <Swiper
