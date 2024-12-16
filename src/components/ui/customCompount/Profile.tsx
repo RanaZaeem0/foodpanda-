@@ -9,6 +9,7 @@ import { PiCrownSimple } from "react-icons/pi";
 import { TfiReceipt } from "react-icons/tfi";
 import { LuReceiptText } from "react-icons/lu";
 import { LiaTrophySolid } from "react-icons/lia";
+import { useSession } from "next-auth/react"
 
 
 interface PopupProps {
@@ -18,6 +19,7 @@ interface PopupProps {
 
 export function Popup({ trigger, content }: PopupProps) {
   const [open, setOpen] = React.useState(false)
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -32,13 +34,15 @@ export function Popup({ trigger, content }: PopupProps) {
 }
 
 export default function PopupExample() {
+  const  session = useSession()
+console.log(session.data?.user)
   return (
     <div className="flex items-center justify-center ">
       <Popup
         trigger={
           <Button variant="ghost" size="sm" className="flex items-center gap-1">
             <IoPersonOutline />
-            <span></span>
+            <span>{session.data?.user?.name}</span>
             <RiArrowDropDownLine />
           </Button>
         }
@@ -54,7 +58,7 @@ export default function PopupExample() {
             <TfiReceipt /> 
             Orders & reordering
             </Button>
-            <Button variant="ghost" className="w-full justify-start" onClick={() => alert("Logout clicked!")}>
+            <Button variant="ghost" className="w-full justify-start" >
             <IoPersonOutline /> 
            Profile
             </Button>

@@ -21,8 +21,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { signIn } from 'next-auth/react'
 import { log } from 'console'
-import { doc } from 'firebase/firestore'
+
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -46,16 +47,17 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormValues) => {
     setError('')
     try {
-    const res =  await signInWithEmailAndPassword(auth, data.email, data.password)
-    console.log(res);
-    const {email,password}  = data;
-    await setDoc(doc(db, "users", res.user.uid), {
-      email,
-      password,
-      id: res.user.uid,
-    });
-      
-    router.push('/dashboard') // Redirect to dashboard after successful login
+        const {email,password}  = data;
+        console.log(email);
+
+        const result = await signIn('credentials', {
+            redirect: false,
+            email,
+            password,
+          })   
+          console.log(result);
+          
+    router.push('/') // Redirect to dashboard after successful login
     } catch (error) {
       setError('Failed to log in. Please check your credentials.')
     }

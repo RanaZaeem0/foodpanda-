@@ -1,5 +1,10 @@
-import { NextResponse } from 'next/server';
+import { getServerSession } from "next-auth"
+import { NextResponse } from "next/server";
 
 export async function GET() {
-    return NextResponse.json({ message: 'FUCK, U !' });
+    const session = await getServerSession();
+
+    return NextResponse.json({
+        name: session?.user?.name
+    })
 }
