@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <>
 
-      <div className="fixed  top-0 left-0 right-0 h-24 mb-10 bg-background border-b border-border z-50 flex items-center justify-between px-4 ">
+      <div className="fixed  top-0 left-0 right-0 h-24 mb-10 bg-background border-b border-border z-50 flex items-center justify-between px-4  ">
       <div className="w-full flex flex-col items-center justify-center">
       <div className="w-full   flex items-center justify-between p-2 ">
           <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="28" height="28" data-testid="brand-icon-icon" aria-hidden="true" focusable="false" className="logo-icon">

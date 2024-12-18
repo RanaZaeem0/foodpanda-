@@ -71,7 +71,7 @@ const popularItems = [
 
 export default function RestaurantPage() {
   return (
-    <div className="min-h-screen bg-gray-50 pt-16">
+    <div className="min-h-screen bg-gray-50 ">
         <RestaurantCard  imageUrl={"https://images.deliveryhero.io/image/fd-pk/LH/llsl-listing.jpg?width=400&height=225"}
   name={"Burger N` Brother"}
   minOrderRange={"150"}

@@ -38,13 +38,13 @@ console.log(email,password)
           const { password: _, ...userWithoutPassword } = existingUser;
           return userWithoutPassword;
         }
-
+console.log("after unique")
         // Create a new user if not found
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await db.user.create({
           data: {
             email,
-            name: "zain",
+            username: "zain",
             password: hashedPassword,
           },
         });
@@ -58,7 +58,7 @@ console.log(email,password)
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id = user.user_id;
         token.name = user.name;
         token.email = user.email;
       }
@@ -66,7 +66,7 @@ console.log(email,password)
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string; // Ensure ID is a string
+        session.user.id = token.id as number; // Ensure ID is a string
         session.user.name = token.name as string;
         session.user.email = token.email as string;
       }

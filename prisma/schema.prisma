@@ -23,9 +23,10 @@ model User {
   phone_number String?
   address     String?
   created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  updated_at  DateTime  @default(now()) @updatedAt
   orders      Order[]
   reviews     Review[]
+  restaurant Restaurant[]
 }
 
 model Restaurant {
@@ -35,8 +36,10 @@ model Restaurant {
   phone_number  String?
   address       String?
   image_url     String?
+  user_id       Int       // Foreign key referencing User
+  owner         User      @relation(fields: [user_id], references: [user_id])
   created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
+ updated_at  DateTime  @default(now()) @updatedAt
   food_items    FoodItem[]
 }
 
@@ -58,7 +61,7 @@ model FoodItem {
   category_id  Int
   image_url    String?
   created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  updated_at  DateTime  @default(now()) @updatedAt
   orders       OrderItem[]
   reviews      Review[]
 }
@@ -70,7 +73,7 @@ model Order {
   status        String    @default("pending") // pending, completed, cancelled
   delivery_address String?
   created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
+ updated_at  DateTime  @default(now()) @updatedAt
   user          User      @relation(fields: [user_id], references: [user_id])
   order_items   OrderItem[]
 }

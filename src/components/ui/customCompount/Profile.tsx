@@ -9,7 +9,7 @@ import { PiCrownSimple } from "react-icons/pi";
 import { TfiReceipt } from "react-icons/tfi";
 import { LuReceiptText } from "react-icons/lu";
 import { LiaTrophySolid } from "react-icons/lia";
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 
 interface PopupProps {
@@ -36,6 +36,11 @@ export function Popup({ trigger, content }: PopupProps) {
 export default function PopupExample() {
   const  session = useSession()
 console.log(session.data?.user)
+const handleLogout = async () => {
+  await signOut({
+    callbackUrl: '/signin', // Redirect after logout (optional)
+  });
+};
   return (
     <div className="flex items-center justify-center ">
       <Popup
@@ -70,7 +75,10 @@ console.log(session.data?.user)
             <LiaTrophySolid /> 
            Panda rewards
             </Button>
-            
+            <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+            <LiaTrophySolid /> 
+           Logout
+            </Button>
           </div>
         }
       />

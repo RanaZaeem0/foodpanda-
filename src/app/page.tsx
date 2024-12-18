@@ -14,11 +14,11 @@ export default function Home() {
   return (
 <>
 
-<div className="min-h-screen bg-background text-foreground">
+<div className="min-h-screen  bg-background text-foreground">
   
    <FilterSidebar />
-<div className="flex items-end justify-end w-full pt-20">
-<div className="w-3/4">
+<div className="flex items-end justify-end w-full ">
+<div className="w-3/4 max-md:w-full">
    <div className="m-2 items-center justify-center flex">
     <FoodInput />
    </div> 

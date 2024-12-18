@@ -42,7 +42,7 @@ export default function FilterSidebar() {
   )
 
   return (
-    <div className="fixed top-24 left-0 bottom-0 w-64 bg-background border-r border-border p-4 overflow-y-auto">
+    <div className="fixed top-24 max-md:hidden left-0 bottom-0 w-64 bg-background border-r border-border p-4 overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">Filters</h2>
 
       {/* Sort by */}

@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import 'swiper/css'
 import 'swiper/css/navigation'
+import Link from 'next/link';
 
 export default function EventHeader(){
   const [isBeginning, setIsBeginning] = React.useState(true)
@@ -32,22 +33,22 @@ export default function EventHeader(){
       >
         
            <SwiperSlide key={1}>
-            <div className="flex m-2 gap-2">
+            <Link href={'/delivery'} className="flex m-2 gap-2">
             <MdOutlineDeliveryDining className="h-6 w-6" />
             <h2 className="font-normal  items-center justify-center flex text-md">Delivery</h2>
-              </div>
+              </Link>
           </SwiperSlide>
           <SwiperSlide key={3}>
-          <div className="flex m-2 gap-2">
+          <Link href={"pickup"} className="flex m-2 gap-2">
             <FaPersonWalking className="h-6 w-6" />
             <h2 className="font-normal items-center justify-center flex text-md text-md">Pick up</h2>
-          </div>
+          </Link>
           </SwiperSlide>
           <SwiperSlide key={2}>
-          <div className="flex m-2 gap-2">
+          <Link href={"pandamart"} className="flex m-2 gap-2">
             <BsSuitcase2 className="h-6 w-6" />
             <h2 className="font-normal items-center justify-center flex text-md text-md">Pandamart</h2>
-          </div>
+          </Link>
           </SwiperSlide>
           <SwiperSlide key={4}>
           <div className="flex m-2 gap-2">

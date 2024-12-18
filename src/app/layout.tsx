@@ -29,12 +29,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-        <Header />
-        <main className="min-h-[calc(100vh-4rem)] flex flex-col">
-            <div className="flex-grow p-6">{children}</div>
+          <Header />
+          <div className="h-24" />
+          <main className=" ">
+            <div className="">{children}</div>
           </main>
         </Providers>
-       
+
       </body>
     </html>
   );
