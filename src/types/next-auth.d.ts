@@ -3,8 +3,8 @@ import  { DefaultSession, DefaultUser } from "next-auth";
 declare module "next-auth" {
   interface Session {
     user: {
-      id: number; // Add custom fields here
-      name?: string | null;
+      user_id: number; // Add custom fields here
+      username?: string | null;
       email?: string | null;
     } & DefaultSession["user"];
   }

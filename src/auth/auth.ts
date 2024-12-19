@@ -59,7 +59,7 @@ console.log("after unique")
     async jwt({ token, user }) {
       if (user) {
         token.id = user.user_id;
-        token.name = user.name;
+        token.name = user.username;
         token.email = user.email;
       }
       return token;

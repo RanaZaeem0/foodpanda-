@@ -34,7 +34,7 @@ export default function Home() {
         <p className="font-light">Min. order Rs. 415 </p>
       </div>
     </div>
-   {/* <Swiper1 /> */}
+   <Swiper1 />
     </Card>
    </div>
  

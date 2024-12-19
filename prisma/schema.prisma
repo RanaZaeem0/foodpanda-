@@ -16,87 +16,102 @@ datasource db {
 // Define the Prisma models corresponding to the database schema
 
 model User {
-  user_id     Int       @id @default(autoincrement())
-  username    String?   
-  email       String    @unique
-  password String
+  user_id      Int          @id @default(autoincrement())
+  username     String?
+  email        String       @unique
+  password     String
   phone_number String?
-  address     String?
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now()) @updatedAt
-  orders      Order[]
-  reviews     Review[]
-  restaurant Restaurant[]
+  address      String?
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @default(now()) @updatedAt
+  orders       Order[]
+  reviews      Review[]
+  restaurant   Restaurant[]
 }
 
 model Restaurant {
-  restaurant_id Int       @id @default(autoincrement())
+  restaurant_id Int    @id @default(autoincrement())
   name          String
-  description   String?
-  phone_number  String?
-  address       String?
-  image_url     String?
-  user_id       Int       // Foreign key referencing User
-  owner         User      @relation(fields: [user_id], references: [user_id])
-  created_at    DateTime  @default(now())
- updated_at  DateTime  @default(now()) @updatedAt
-  food_items    FoodItem[]
+
+  description  String?
+  phone_number String?
+  address      String?
+  image_url    String?
+
+  user_id              Int // Foreign key referencing User
+  owner                User    @relation(fields: [user_id], references: [user_id])
+  accepts_instructions Boolean
+  delivery_provider    String
+  customer_type        String  @default("all")
+  is_active            Boolean @default(true)
+  is_best_in_city      Boolean @default(false)
+  tag                  String?
+  rating               Int
+  review_number        Int
+  address_line2        String?
+  latitude             Int
+  longitude            Int
+  minimum_order_amount Int
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  food_items FoodItem[]
 }
 
 model FoodCategory {
-  category_id  Int       @id @default(autoincrement())
-  name         String
-  description  String?
-  food_items   FoodItem[]
+  category_id Int        @id @default(autoincrement())
+  name        String
+  description String?
+  food_items  FoodItem[]
 }
 
 model FoodItem {
-  food_id      Int       @id @default(autoincrement())
-  name         String
-  description  String?
-  price        Float
-  restaurant   Restaurant @relation(fields: [restaurant_id], references: [restaurant_id])
+  food_id       Int          @id @default(autoincrement())
+  name          String
+  description   String?
+  price         Float
+  restaurant    Restaurant   @relation(fields: [restaurant_id], references: [restaurant_id])
   restaurant_id Int
-  category     FoodCategory @relation(fields: [category_id], references: [category_id])
-  category_id  Int
-  image_url    String?
-  created_at   DateTime  @default(now())
-  updated_at  DateTime  @default(now()) @updatedAt
-  orders       OrderItem[]
-  reviews      Review[]
+  category      FoodCategory @relation(fields: [category_id], references: [category_id])
+  category_id   Int
+  image_url     String?
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @default(now()) @updatedAt
+  orders        OrderItem[]
+  reviews       Review[]
 }
 
 model Order {
-  order_id      Int        @id @default(autoincrement())
-  user_id       Int
-  total_amount  Float
-  status        String    @default("pending") // pending, completed, cancelled
+  order_id         Int         @id @default(autoincrement())
+  user_id          Int
+  total_amount     Float
+  status           String      @default("pending") // pending, completed, cancelled
   delivery_address String?
-  created_at    DateTime  @default(now())
- updated_at  DateTime  @default(now()) @updatedAt
-  user          User      @relation(fields: [user_id], references: [user_id])
-  order_items   OrderItem[]
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @default(now()) @updatedAt
+  user             User        @relation(fields: [user_id], references: [user_id])
+  order_items      OrderItem[]
 }
 
 model OrderItem {
-  order_item_id Int       @id @default(autoincrement())
+  order_item_id Int      @id @default(autoincrement())
   order_id      Int
   food_id       Int
   quantity      Int
   price         Float
-  created_at    DateTime  @default(now())
-  order         Order     @relation(fields: [order_id], references: [order_id])
-  food_item     FoodItem  @relation(fields: [food_id], references: [food_id])
+  created_at    DateTime @default(now())
+  order         Order    @relation(fields: [order_id], references: [order_id])
+  food_item     FoodItem @relation(fields: [food_id], references: [food_id])
 }
 
 model Review {
-  review_id   Int      @id @default(autoincrement())
-  user_id     Int
-  food_id     Int
-  rating      Int      
-  comment     String?
-  created_at  DateTime @default(now())
-  user        User     @relation(fields: [user_id], references: [user_id])
-  food_item   FoodItem @relation(fields: [food_id], references: [food_id])
+  review_id  Int      @id @default(autoincrement())
+  user_id    Int
+  food_id    Int
+  rating     Int
+  comment    String?
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [user_id])
+  food_item  FoodItem @relation(fields: [food_id], references: [food_id])
 }
-

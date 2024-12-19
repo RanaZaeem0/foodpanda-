@@ -10,6 +10,7 @@ import { TfiReceipt } from "react-icons/tfi";
 import { LuReceiptText } from "react-icons/lu";
 import { LiaTrophySolid } from "react-icons/lia";
 import { signOut, useSession } from "next-auth/react"
+import Link from "next/link"
 
 
 interface PopupProps {
@@ -47,15 +48,16 @@ const handleLogout = async () => {
         trigger={
           <Button variant="ghost" size="sm" className="flex items-center gap-1">
             <IoPersonOutline />
-            <span>{session.data?.user?.name}</span>
+            <span>{session.data?.user?.username}</span>
             <RiArrowDropDownLine />
           </Button>
         }
         content={
           <div className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start" onClick={() => alert("Profile clicked!")}>
-              Profile
-            </Button>
+            <Link href={'/profile'}>
+            <Button variant="ghost" className="w-full justify-start" >
+              {session.data?.user?.name}
+            </Button></Link>
             <Button variant="ghost" className="w-full justify-start" onClick={() => alert("Settings clicked!")}>
              <PiCrownSimple />  Subcribe for free delivery
             </Button>
@@ -63,10 +65,12 @@ const handleLogout = async () => {
             <TfiReceipt /> 
             Orders & reordering
             </Button>
+            <Link href={"/profile"}>
             <Button variant="ghost" className="w-full justify-start" >
             <IoPersonOutline /> 
            Profile
             </Button>
+            </Link>
             <Button variant="ghost" className="w-full justify-start" onClick={() => alert("Logout clicked!")}>
             <LuReceiptText /> 
            Vouchers

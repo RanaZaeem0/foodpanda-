@@ -13,12 +13,27 @@ import 'swiper/css/navigation'
 import { foodpanda, productsData } from '@/lib/sample'
 import { LuBike } from "react-icons/lu";
 import { IoTimeOutline } from "react-icons/io5";
+import getResturent from '@/actions/food'
 
 
 
 export default function Swiper1() {
+
+
+
   const [isBeginning, setIsBeginning] = React.useState(true)
   const [isEnd, setIsEnd] = React.useState(false)
+  const [resturentData,setResturentData] = React.useState([])
+const name = async  ()=> {
+  const res = await getResturent()
+  console.log(res);
+  setResturentData(res.allResturant)
+  
+}
+name()
+
+
+
 
   return (
     <div className=" mx-auto relative pl-4">
@@ -36,15 +51,15 @@ export default function Swiper1() {
           setIsEnd(swiper.isEnd)
         }}
       >
-        {foodpanda.data.rlp.organic_listing.views.map((product) => (
-          product.items.map((product, index) => {
+        {/* {resturentData.map(
+          (product, index) => {
             return <SwiperSlide key={index} >
               <Card>
                 <div className=" w-full flex flex-col items-center justify-center">
                 <div className="w-full ">
                 <Image
-                    src={product.hero_listing_image}
-                    alt={product.hero_listing_image}
+                    src={product.imageUrl}
+                    alt={product.imageUrl}
                     width={200}
                     height={200}
                     className="!w-full h-auto object-cover mb-4 rounded-md"
@@ -69,7 +84,7 @@ export default function Swiper1() {
               </Card>
             </SwiperSlide>
           })
-        ))}
+        } */}
       </Swiper>
       <button
         className={`bg-white border swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10  rounded-full p-2 shadow-md ${isBeginning ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
