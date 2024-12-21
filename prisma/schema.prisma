@@ -32,38 +32,45 @@ model User {
 model Restaurant {
   restaurant_id Int    @id @default(autoincrement())
   name          String
-
   description  String?
   phone_number String?
   address      String?
-  image_url    String?
-
-  user_id              Int // Foreign key referencing User
-  owner                User    @relation(fields: [user_id], references: [user_id])
-  accepts_instructions Boolean
-  delivery_provider    String
-  customer_type        String  @default("all")
-  is_active            Boolean @default(true)
-  is_best_in_city      Boolean @default(false)
-  tag                  String?
-  rating               Int
-  review_number        Int
-  address_line2        String?
-  latitude             Int
-  longitude            Int
-  minimum_order_amount Int
-
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
-
-  food_items FoodItem[]
+  image_url    String
+  user_id               Int // Foreign key referencing User
+  owner                 User    @relation(fields: [user_id], references: [user_id])
+  accepts_instructions  Boolean @default(false)
+  delivery_provider     String  @default("unknown")
+  customer_type         String  @default("all")
+  is_active             Boolean @default(true)
+  is_best_in_city       Boolean @default(false)
+  tag                   String?
+  rating                Int  @default(0)
+  review_number         Int  @default(0)
+  address_line2         String?
+  latitude              Float  @default(0)
+  longitude             Float  @default(0)
+  minimum_order_amount  Int  @default(0)
+  minimum_delivery_time Int  @default(0)
+  original_delivery_fee Int  @default(0)
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @default(now()) @updatedAt
+  primary_cuisine primary_cuisine[]
+  food_items      FoodItem[]
 }
 
 model FoodCategory {
   category_id Int        @id @default(autoincrement())
   name        String
-  description String?
+  urlkey      String?
   food_items  FoodItem[]
+}
+
+model primary_cuisine {
+  category_id             Int         @id @default(autoincrement())
+  name                    String
+  urlKey                  String
+  Restaurant              Restaurant? @relation(fields: [restaurantRestaurant_id], references: [restaurant_id])
+  restaurantRestaurant_id Int?
 }
 
 model FoodItem {
@@ -75,7 +82,7 @@ model FoodItem {
   restaurant_id Int
   category      FoodCategory @relation(fields: [category_id], references: [category_id])
   category_id   Int
-  image_url     String?
+  image_url     String
   created_at    DateTime     @default(now())
   updated_at    DateTime     @default(now()) @updatedAt
   orders        OrderItem[]

@@ -17,12 +17,15 @@
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-scroll-area": "^1.2.2",
+    "@radix-ui/react-select": "^2.1.4",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.4",
     "@reduxjs/toolkit": "^2.5.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "firebase": "^11.0.2",
     "geolib": "^3.3.4",
     "lucide-react": "^0.468.0",
@@ -37,6 +40,7 @@
     "swiper": "^11.1.15",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.3",
     "zod": "^3.24.1"
   },
   "devDependencies": {
