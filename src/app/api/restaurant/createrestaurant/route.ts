@@ -138,18 +138,16 @@ console.log(parseResult.data,imageUploaded.result.url);
 export async function GET(req: NextResponse) {
 
   const session = await getServerSession(NEXT_AUTH);
-  if (!session || !session?.user || !session?.user?.user_id) {
+  if (!session || !session?.user ) {
     return NextResponse.json({ message: "Unauthoriztede" }, { status: 401 });
   }
-  const user_id = session.user.user_id
+  const user_id = session.user.id
 
   const userRestaurent = await db.restaurant.findMany({
     where: {
       user_id: user_id, // Match user_id
     },
-    select: {
-      user_id: true, // Specify the fields you want to retrieve
-    },
+  
   })
   if (!userRestaurent) {
     return NextResponse.json({ message: "Can't find resturent" }, { status: 401 });

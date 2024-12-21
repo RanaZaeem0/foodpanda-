@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import FilterSidebar from "@/components/ui/customCompount/FilderSidebar";
 import FoodInput from "@/components/ui/customCompount/FoodInput";
+import Location from "@/components/ui/customCompount/Location";
 import Swiper1 from "@/components/ui/customCompount/Swiper";
 import { Input } from "@/components/ui/input";
 import { getUserLocation } from "@/lib/lib";
@@ -9,13 +10,12 @@ import Image from "next/image";
 
 export default function Home() {
 
-getUserLocation()
 
   return (
 <>
 
 <div className="min-h-screen  bg-background text-foreground">
-  
+  <Location />
    <FilterSidebar />
 <div className="flex items-end justify-end w-full ">
 <div className="w-3/4 max-md:w-full">
