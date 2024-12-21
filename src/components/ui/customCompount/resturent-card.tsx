@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Star, Heart } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import { useGetUserRestaurantQuery } from "@/lib/api/api"
 
 interface RestaurantCardProps {
   imageUrl: string
@@ -17,6 +18,8 @@ export default function RestaurantCard({
   rating,
   reviewCount
 }: RestaurantCardProps) {
+
+    
   return (
     <div className="flex items-center space-x-4 p-4   ">
       <div className="flex-shrink-0">

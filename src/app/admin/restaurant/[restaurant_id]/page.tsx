@@ -1,7 +1,6 @@
 import { ShoppingBag } from 'lucide-react'
-import { MenuCategories } from "@/components/ui/customCompount/Food-category-header"
 import { MenuItem } from "@/components/ui/customCompount/foodMenu"
-import RestaurantCard from '@/components/ui/customCompount/resturent-card'
+import { UserRestaurantCard } from '@/components/ui/customCompount/UserRestaurant'
 
 const popularItems = [
   {
@@ -70,14 +69,12 @@ const popularItems = [
 ]
 
 export default function RestaurantPage() {
+
+ 
+
   return (
     <div className="min-h-screen bg-gray-50 ">
-        <RestaurantCard  imageUrl={"https://images.deliveryhero.io/image/fd-pk/LH/llsl-listing.jpg?width=400&height=225"}
-  name={"Burger N` Brother"}
-  minOrderRange={"150"}
-  rating={4}
-  reviewCount={200} />
-      <MenuCategories />
+        <UserRestaurantCard/>
       <main className="container py-6">
         <div className="grid md:grid-cols-[1fr,300px] gap-6">
           <div className="space-y-6">
@@ -90,19 +87,7 @@ export default function RestaurantPage() {
               </div>
             </section>
           </div>
-          <div className="hidden md:block">
-            <div className="sticky top-32 border rounded-lg p-4 bg-white">
-              <div className="flex flex-col items-center justify-center h-60">
-                <div className="w-24 h-24 bg-pink-100 rounded-full mb-4 flex items-center justify-center">
-                  <ShoppingBag className="h-12 w-12 text-pink-500" />
-                </div>
-                <h3 className="font-semibold text-lg">Hungry?</h3>
-                <p className="text-sm text-center text-muted-foreground">
-                  You haven't added anything to your cart!
-                </p>
-              </div>
-            </div>
-          </div>
+
         </div>
       </main>
     </div>

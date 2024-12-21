@@ -25,6 +25,8 @@ export default function page(){
        <Button>Create resturent</Button></Link>
        <Link href={"/restaurant/addfood"}>
        <Button>Add Food </Button></Link>
+       <Link href={"admin/restaurant/"}>
+       <Button>user resturent  </Button></Link>
 
     </div>
     </div>

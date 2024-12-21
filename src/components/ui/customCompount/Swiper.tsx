@@ -10,11 +10,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { foodpanda, productsData } from '@/lib/sample'
-import { LuBike } from "react-icons/lu";
-import { IoTimeOutline } from "react-icons/io5";
-import getResturent from '@/actions/food'
-import { Restaurant } from '@/types'
+import { useGetAllRestaurantQuery } from '@/lib/api/api'
+import { ProductCardSkeleton } from './ProductSkeleton'
 
 
 
@@ -24,19 +21,20 @@ export default function Swiper1() {
 
   const [isBeginning, setIsBeginning] = React.useState(true)
   const [isEnd, setIsEnd] = React.useState(false)
-  const [resturentData,setResturentData] = React.useState<Restaurant[] | []>([])
-  React.useEffect(()=>{
-  const name = async  ()=> {
-  const res = await getResturent()
-  console.log(res);
-  setResturentData(res.allResturant)
-  
+
+
+
+const allResturentData = useGetAllRestaurantQuery({})
+if(allResturentData.isLoading){
+  return  <div className="max-w-5xl mx-auto p-8">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {/* Display multiple skeletons */}
+    {[...Array(4)].map((_, index) => (
+      <ProductCardSkeleton key={index} />
+    ))}
+  </div>
+</div>
 }
-name()
-},[])
-console.log(resturentData);
-
-
 
 
   return (
@@ -55,7 +53,7 @@ console.log(resturentData);
           setIsEnd(swiper.isEnd)
         }}
       >
-        {resturentData.map((product, index) => {
+        {allResturentData?.data?.allResturant?.map((product, index) => {
             return <SwiperSlide key={index} >
               <Card>
                 <div className=" w-full flex flex-col items-center justify-center">

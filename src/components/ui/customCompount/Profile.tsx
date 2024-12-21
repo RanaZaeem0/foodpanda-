@@ -11,6 +11,8 @@ import { LuReceiptText } from "react-icons/lu";
 import { LiaTrophySolid } from "react-icons/lia";
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
+import { useDispatch,  useSelector } from "react-redux"
+import { login } from "@/lib/store/slice/authSlice"
 
 
 interface PopupProps {
@@ -34,9 +36,21 @@ export function Popup({ trigger, content }: PopupProps) {
   )
 }
 
+
 export default function PopupExample() {
+
   const  session = useSession()
 console.log(session.data?.user)
+
+const Selector = useSelector(state => state.auth)
+const disptach  = useDispatch()
+if(session.data?.user){
+disptach(login(session.data.user))
+}
+console.log(Selector);
+
+
+
 const handleLogout = async () => {
   await signOut({
     callbackUrl: '/signin', // Redirect after logout (optional)
@@ -48,7 +62,7 @@ const handleLogout = async () => {
         trigger={
           <Button variant="ghost" size="sm" className="flex items-center gap-1">
             <IoPersonOutline />
-            <span>{session.data?.user?.username}</span>
+            <span>{session.data?.user?.name}</span>
             <RiArrowDropDownLine />
           </Button>
         }
