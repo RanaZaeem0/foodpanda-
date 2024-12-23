@@ -10,9 +10,7 @@ export async function GET(req: NextResponse) {
 
   const allResturant = await db.restaurant.findMany(
     {
-        include:{
-            food_items:true
-        }
+       
     }
   )
   if (!allResturant) {

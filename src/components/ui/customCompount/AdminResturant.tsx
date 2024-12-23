@@ -4,46 +4,71 @@ import { Button } from "@/components/ui/button"
 import { StarIcon } from 'lucide-react'
 import Link from "next/link"
 import { useDeleteUserResturantMutation, useGetUserRestaurantQuery } from "@/lib/api/api"
+import { Item } from "@radix-ui/react-menubar"
+import { useRouter } from "next/navigation"
 import { useParams } from "next/navigation"
+import { RestaurantType } from "@/types/resturant"
 
+interface Restaurant {
+  restaurant_id: number
+  name: string
+  address: string
+  rating: number
+  image_url: string,
+  minOrderRange:number,
 
+}
 
+interface RestaurantCardProps {
+  restaurant: Restaurant
+}
 
-export function UserRestaurantCard() {
+export  function AdminRestaurant() {
   const UserRestaurant = useGetUserRestaurantQuery({})
   const params = useParams()
+  const router = useRouter()
   const restaurantId =params.restaurant_id
-
-  
   const [deleteRestaurant]  = useDeleteUserResturantMutation()
   const handleDeleteResturant  =async ()=>{
-     try {
+    try {
       console.log(restaurantId,"inmuatute");
       
-        const deletes = await  deleteRestaurant(restaurantId)
-       console.log(deletes);
-       
-     } catch (error) {
+      const deletes = await  deleteRestaurant(restaurantId)
+      console.log(deletes);
+      router.push('/')
+      
+    } catch (error) {
       console.log(error);
       
-     }
+    }
   }
+  
+  if(UserRestaurant.isLoading){
+    return <>
+    <h1>Loading ...</h1>
+    </>
+    }  
 
-   console.log(deleteRestaurant,"delted restaurant");
+    console.log(UserRestaurant,"userres");
+    
+  const ress  =  UserRestaurant.data?.userRestaurent.filter((i:any) => i.restaurant_id == restaurantId);
+
+  const openRestaurant = ress
+  console.log(Array.isArray(openRestaurant)); 
+ 
    
 
 
-  if(UserRestaurant.isLoading){
-
-  }
+ 
 
 
   return (
 <>
 <div className="">
-  {
-    UserRestaurant.data?.userRestaurent.map((item:any,index:number) =>{
-      return     <Card key={index}>
+  {openRestaurant.map((item:RestaurantType,index:number)=>{
+    console.log(item?.restaurant_id,"res");
+    
+        return   <Card  key={index}>
       <CardHeader>
         <CardTitle>{item?.name}</CardTitle>
       </CardHeader>
@@ -59,6 +84,7 @@ export function UserRestaurantCard() {
         <Button asChild variant="outline">
           <Link href={`admin/restaurant/${item?.restaurant_id}/orders`}>View Orders</Link>
         </Button>
+    
        { !restaurantId  ?  <Button asChild>
           <Link href={`http://localhost:3000/admin/restaurant/${item?.restaurant_id}`}>Manage Menu</Link>
         </Button>
@@ -68,8 +94,8 @@ export function UserRestaurantCard() {
         }
       </CardFooter>
     </Card>
-    })
-  }
+  })
+    }
 </div>
 </>
   )

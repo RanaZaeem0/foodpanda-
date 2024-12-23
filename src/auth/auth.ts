@@ -59,15 +59,15 @@ console.log("after unique")
     async jwt({ token, user }) {
       if (user) {
         token.id = user.user_id;
-        token.name = user.username;
+        token.name = user.name;
         token.email = user.email;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as number; // Ensure ID is a string
-        session.user.name = token.name as string;
+        session.user.user_id = token.id as number; // Ensure ID is a string
+        session.user.username = token.name as string;
         session.user.email = token.email as string;
       }
       console.log("Updated Session:", session);

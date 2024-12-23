@@ -1,6 +1,5 @@
-import { ShoppingBag } from 'lucide-react'
+import { AdminRestaurant } from "@/components/ui/customCompount/AdminResturant"
 import { MenuItem } from "@/components/ui/customCompount/foodMenu"
-import { UserRestaurantCard } from '@/components/ui/customCompount/UserRestaurant'
 
 const popularItems = [
   {
@@ -74,7 +73,7 @@ export default function RestaurantPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 ">
-        <UserRestaurantCard/>
+        <AdminRestaurant/>
       <main className="container py-6">
         <div className="grid md:grid-cols-[1fr,300px] gap-6">
           <div className="space-y-6">

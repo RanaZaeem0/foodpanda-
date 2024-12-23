@@ -13,6 +13,7 @@ import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useDispatch,  useSelector } from "react-redux"
 import { login } from "@/lib/store/slice/authSlice"
+import { RootState } from "@/lib/store"
 
 
 interface PopupProps {
@@ -42,10 +43,14 @@ export default function PopupExample() {
   const  session = useSession()
 console.log(session.data?.user)
 
-const Selector = useSelector(state => state.auth)
+const Selector = useSelector((state: RootState) => state.auth);
 const disptach  = useDispatch()
 if(session.data?.user){
-disptach(login(session.data.user))
+  const user = {
+    ...session.data.user,
+    user_id: Number(session.data.user.user_id), // Convert user_id to number
+  };
+disptach(login(user))
 }
 console.log(Selector);
 

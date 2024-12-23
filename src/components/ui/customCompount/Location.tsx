@@ -26,9 +26,9 @@ export default function Location() {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const location = await getUserLocation();
+        const location:any = await getUserLocation();
         setUserLocation(location);
-      } catch (err) {
+      } catch (err:any) {
         setError(err.message);
       }
     };

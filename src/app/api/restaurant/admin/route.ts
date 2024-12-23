@@ -5,6 +5,7 @@ import { NEXT_AUTH } from '@/auth/auth';
 import db from "@/db"
 import { uploadToCloudinary } from '@/lib/cloud';
 import { log } from 'console';
+import { NextApiRequest } from 'next';
 
 
 const requestBodySchema = z.object({
@@ -90,7 +91,7 @@ console.log(parseResult.data,imageUploaded.result.url);
     return NextResponse.json({ message: "Image upload failed" }, { status: 400 });
   }
 
-  const user_id = session.user?.id
+  const user_id = session.user?.user_id
   console.log("Parsed Data:", parseResult.data);
   console.log("Image URL:", imageUploaded.result?.url);
   console.log("User ID:", user_id);
@@ -134,27 +135,29 @@ console.log(parseResult.data,imageUploaded.result.url);
 
 
 
-
 export async function GET(req: NextResponse) {
 
-  const session = await getServerSession(NEXT_AUTH);
-  if (!session || !session?.user ) {
-    return NextResponse.json({ message: "Unauthoriztede" }, { status: 401 });
-  }
-  const user_id = session.user.id
+    const session = await getServerSession(NEXT_AUTH);
+    if (!session || !session?.user ) {
+      return NextResponse.json({ message: "Unauthoriztede" }, { status: 401 });
+    }
+    const user_id = session.user.user_id
 
-  const userRestaurent = await db.restaurant.findMany({
-    where: {
-      user_id: user_id, // Match user_id
-    },
+    console.log(user_id);
+    
+    const userRestaurent = await db.restaurant.findMany({
+      where: {
+        user_id: user_id, // Match user_id
+      },
+    
+    })
+    if (!userRestaurent) {
+      return NextResponse.json({ message: "Can't find resturent" }, { status: 401 });
+    }
+    return NextResponse.json({
+      msg: "User Restaurent ",
+      userRestaurent
+    });
   
-  })
-  if (!userRestaurent) {
-    return NextResponse.json({ message: "Can't find resturent" }, { status: 401 });
   }
-  return NextResponse.json({
-    msg: "User Restaurent ",
-    userRestaurent
-  });
-
-}
+  
