@@ -1,11 +1,10 @@
-"use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { StarIcon } from 'lucide-react'
 import Link from "next/link"
 import { useDeleteUserResturantMutation, useGetUserRestaurantQuery } from "@/lib/api/api"
 import { useParams } from "next/navigation"
-
+import db from "@/db"
 
 
 
@@ -13,6 +12,8 @@ export function UserRestaurantCard() {
   const UserRestaurant = useGetUserRestaurantQuery({})
   const params = useParams()
   const restaurantId =params.restaurant_id
+
+
 
   
   const [deleteRestaurant]  = useDeleteUserResturantMutation()
@@ -62,7 +63,7 @@ export function UserRestaurantCard() {
        { !restaurantId  ?  <Button asChild>
           <Link href={`http://localhost:3000/admin/restaurant/${item?.restaurant_id}`}>Manage Menu</Link>
         </Button>
-        :  <Button  onClick={handleDeleteResturant}>
+        :  <Button  >
         Delete
       </Button> 
         }

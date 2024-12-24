@@ -1,6 +1,6 @@
 import { AddFoodForm } from "@/components/ui/customCompount/addFood"
 
-function page() {
+function AddFood() {
   return (
     <div>
 <AddFoodForm/>     
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default AddFood

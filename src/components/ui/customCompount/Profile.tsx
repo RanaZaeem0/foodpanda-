@@ -43,16 +43,17 @@ export default function PopupExample() {
   const  session = useSession()
 console.log(session.data?.user)
 
-const Selector = useSelector((state: RootState) => state.auth);
-const disptach  = useDispatch()
-if(session.data?.user){
-  const user = {
-    ...session.data.user,
-    user_id: Number(session.data.user.user_id), // Convert user_id to number
-  };
-disptach(login(user))
-}
-console.log(Selector);
+const selector = useSelector((state: RootState) => state.auth);
+const dispatch  = useDispatch()
+React.useEffect(() => {
+  if (session.data?.user && !selector.userData) {
+    const user = {
+      ...session.data.user,
+      user_id: Number(session.data.user.user_id), // Convert user_id to number
+    };
+    dispatch(login(user)); // Dispatch login action
+  }
+}, [session.data?.user, selector.userData, dispatch]);
 
 
 

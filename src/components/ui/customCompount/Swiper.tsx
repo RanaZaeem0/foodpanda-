@@ -53,14 +53,14 @@ if(allResturentData.isLoading){
           setIsEnd(swiper.isEnd)
         }}
       >
-        {allResturentData?.data?.allResturant?.map((product:any, index:number) => {
+        {allResturentData?.data?.allResturant?.map((product, index:number) => {
             return <SwiperSlide key={index} >
               <Card>
                 <div className=" w-full flex flex-col items-center justify-center">
                 <div className="w-full ">
                 <Image
-                    src={product.image_url}
-                    alt={product.food_items}
+                    src={product.image_url }
+                    alt={product.name }
                     width={200}
                     height={200}
                     className="!w-full h-auto object-cover mb-4 rounded-md"
